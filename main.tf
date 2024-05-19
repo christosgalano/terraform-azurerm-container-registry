@@ -51,8 +51,8 @@ resource "azurerm_container_registry" "this" {
     }
 
     precondition {
-      condition     = var.public_network_access_enabled && var.sku == "Premium" || !var.public_network_access_enabled
-      error_message = "The `Premium` sku is required if public network access is enabled."
+      condition     = !var.public_network_access_enabled && var.sku == "Premium" || var.public_network_access_enabled
+      error_message = "The `Premium` sku is required if public network access is disabled."
     }
 
     ignore_changes = [tags]

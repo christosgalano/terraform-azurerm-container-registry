@@ -6,11 +6,10 @@ variables {
   resource_group_name = "rg-azurerm-container-registry-tftest"
 }
 
-run "valid_names" {
+run "valid_inputs" {
   command = plan
 
   variables {
-    name = "crtftest"
     private_endpoint = {
       name      = "pep-tftest"
       subnet_id = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/rg-tftest/providers/Microsoft.Network/virtualNetworks/vnet-tftest/subnets/snet-tftest"
@@ -28,7 +27,7 @@ run "valid_names" {
   }
 }
 
-run "invalid_names" {
+run "invalid_resource_names" {
   command = plan
 
   variables {
@@ -47,7 +46,7 @@ run "invalid_names" {
   ]
 }
 
-run "disallowed_values" {
+run "invalid_sku_and_network_rule_values" {
   command = plan
 
   variables {
@@ -60,3 +59,57 @@ run "disallowed_values" {
     var.network_rule_bypass_option
   ]
 }
+
+run "zone_redundancy_enabled_with_non_premium_sku" {
+  command = plan
+
+  variables {
+    sku                     = "Standard"
+    zone_redundancy_enabled = true
+  }
+
+  expect_failures = [azurerm_container_registry.this]
+}
+
+run "georeplication_with_non_premium_sku" {
+  command = plan
+
+  variables {
+    sku = "Standard"
+    georeplications = [
+      {
+        location                  = "westeurope"
+        regional_endpoint_enabled = false
+        zone_redundancy_enabled   = false
+      }
+    ]
+  }
+
+  expect_failures = [azurerm_container_registry.this]
+}
+
+run "private_access_with_non_premium_sku" {
+  command = plan
+
+  variables {
+    sku                           = "Standard"
+    public_network_access_enabled = false
+  }
+
+  expect_failures = [azurerm_container_registry.this]
+}
+
+run "private_endpoint_with_public_network_access_enabled" {
+  command = plan
+
+  variables {
+    public_network_access_enabled = true
+    private_endpoint = {
+      name      = "pep-tftest"
+      subnet_id = "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/rg-tftest/providers/Microsoft.Network/virtualNetworks/vnet-tftest/subnets/snet-tftest"
+    }
+  }
+
+  expect_failures = [azurerm_private_endpoint.this]
+}
+
