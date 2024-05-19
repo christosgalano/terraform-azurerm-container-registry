@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event }}
+  cancel-in-progress: true
+
 jobs:
   terraform_scan:
     name: Terraform Scan
