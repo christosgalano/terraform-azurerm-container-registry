@@ -59,7 +59,7 @@ jobs:
           quiet: true
           soft_fail: true
           config_file: .checkov.yaml
-          output_format: cli,junit
+          output_format: cli,junitxml
           output_file_path: console,checkov_results_junit.xml
 
       - name: Publish Test Results
