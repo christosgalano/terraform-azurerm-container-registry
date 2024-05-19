@@ -31,7 +31,7 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "~1.8"
+          terraform_version: ">= 1.8, < 2.0"
 
       - name: Terraform init
         run: terraform init
@@ -66,10 +66,11 @@ jobs:
           output_format: cli,junitxml
           output_file_path: console,checkov_results_junit.xml
 
-      - name: Publish Test Results
+      - name: Publish results
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
+          check_name: Scan Results
           files: '*_junit.xml'
           action_fail: true
 
@@ -84,10 +85,13 @@ jobs:
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "~1.8"
+          terraform_version: ">= 1.8, < 2.0"
 
       - name: Terraform init
         run: terraform init
 
-      - name: Terraform test
-        run: terraform test
+      - name: Contract tests
+        run: terraform test -filter=tests/contract.tftest.hcl
+
+      - name: Integration tests
+        run : terraform test -filter=tests/integration.tftest.hcl
