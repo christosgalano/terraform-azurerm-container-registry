@@ -1,0 +1,95 @@
+name: Continuous Integration
+
+run-name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+  terraform_scan:
+    name: Terraform Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: ./install-tools.sh
+        working-directory: .github/scripts
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.8"
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform format check
+        run: terraform fmt -check -no-color
+
+      - name: Terraform validate
+        run: terraform validate -no-color
+
+      - name: Install tflint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Tflint scan
+        run: |
+          tflint --init --config .tflint.hcl
+          tflint --config "$(pwd)/.tflint.hcl" --format junit --force > tflint_results_junit.xml
+
+      - name: Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          output: trivy_results_junit.xml
+          trivy-config: .trivy.yaml
+
+      - name: Checkov scan
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          directory: .
+          quiet: true
+          soft_fail: true
+          config_file: .checkov.yaml
+          output_format: cli,junit
+          output_file_path: console,checkov_results_junit.xml
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: *_junit.xml
+          action_fail: true
+
+  terraform_test:
+    name: Terraform Test
+    needs: terraform_scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.8"
+
+      - name: Terraform init
+        run: terraform init
+
+      - name: Terraform test
+        run: terraform test
