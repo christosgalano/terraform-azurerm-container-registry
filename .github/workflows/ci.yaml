@@ -1,5 +1,4 @@
 name: Continuous Integration
-run-name: ci
 
 on:
   push:
