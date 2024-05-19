@@ -15,7 +15,7 @@ This module offers the following features:
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.6, < 2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.8, < 2.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.95 |
 
 ## Usage
@@ -25,11 +25,11 @@ The basic usage of this module is as follows:
 ```hcl
 module "container_registry" {
   source = "<module-source>"
-
+  
   # Required variables
-  name =
-  resource_group_name =
-
+  name = 
+  resource_group_name = 
+  
   # Optional variables
   admin_enabled = false
   anonymous_pull_enabled = false
@@ -85,6 +85,7 @@ module "container_registry" {
 
 | Name | Description |
 |------|-------------|
+| <a name="output_admin"></a> [admin](#output\_admin) | The admin credentials of the container registry. |
 | <a name="output_id"></a> [id](#output\_id) | The resource id of the container registry. |
 | <a name="output_login_server"></a> [login\_server](#output\_login\_server) | The login server of the container registry. |
 | <a name="output_name"></a> [name](#output\_name) | The name of the container registry. |
