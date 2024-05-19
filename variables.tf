@@ -152,10 +152,3 @@ The name of the network interface (if provided) must be 2-80 characters long and
 DESCRIPTION
   }
 }
-
-
-variable "test" {
-  type        = string
-  default     = "test"
-  description = "test"
-}

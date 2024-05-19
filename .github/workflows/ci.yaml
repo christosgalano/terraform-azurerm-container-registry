@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_call:
   workflow_dispatch:
 
 concurrency:
@@ -46,7 +47,7 @@ jobs:
       - name: Tflint scan
         run: |
           tflint --init --config .tflint.hcl
-          tflint --config "$(pwd)/.tflint.hcl" > tflint_results_junit.xml
+          tflint --config "$(pwd)/.tflint.hcl" --format junit > tflint_results_junit.xml
 
       - name: Trivy scan
         uses: aquasecurity/trivy-action@master
