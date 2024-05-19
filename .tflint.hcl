@@ -1,5 +1,7 @@
 config {
-  call_module_type    = "local"
+  format              = "junit"
+  call_module_type    = "all"
+  force               = true
   disabled_by_default = false
 }
 

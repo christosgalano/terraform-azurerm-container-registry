@@ -46,7 +46,7 @@ jobs:
       - name: Tflint scan
         run: |
           tflint --init --config .tflint.hcl
-          tflint --config "$(pwd)/.tflint.hcl" --format junit --force > tflint_results_junit.xml
+          tflint --config "$(pwd)/.tflint.hcl" > tflint_results_junit.xml
 
       - name: Trivy scan
         uses: aquasecurity/trivy-action@master
@@ -60,8 +60,6 @@ jobs:
         uses: bridgecrewio/checkov-action@v12
         with:
           directory: .
-          quiet: true
-          soft_fail: true
           config_file: .checkov.yaml
           output_format: cli,junitxml
           output_file_path: console,checkov_results_junit.xml
