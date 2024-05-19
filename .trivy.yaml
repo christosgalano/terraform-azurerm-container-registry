@@ -14,7 +14,7 @@ scan:
     - examples/
 
 misconfiguration:
-  include-non-failures: false
+  include-non-failures: true
   scanners:
     - terraform
   terraform:
