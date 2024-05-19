@@ -22,10 +22,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install tools
-        run: ./install-tools.sh
-        working-directory: .github/scripts
-
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
         with:
