@@ -1,5 +1,4 @@
 name: Continuous Integration
-
 run-name: ci
 
 on:
@@ -9,7 +8,7 @@ on:
   pull_request:
     branches:
       - main
-
+  workflow_dispatch:
 
 jobs:
   terraform_scan:
@@ -53,8 +52,8 @@ jobs:
       - name: Trivy scan
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: 'fs'
-          scan-ref: '.'
+          scan-ref: .
+          scan-type: fs
           output: trivy_results_junit.xml
           trivy-config: .trivy.yaml
 
