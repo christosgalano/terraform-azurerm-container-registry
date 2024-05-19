@@ -15,7 +15,7 @@ skip-check:
   - CKV_AZURE_167
 
   # Ensure Azure Container Registry (ACR) is zone redundant.
-  # - CKV_AZURE_233
+  - CKV_AZURE_233
 
   # Ensure dedicated data endpoints are enabled.
-  # - CKV_AZURE_237
+  - CKV_AZURE_237
