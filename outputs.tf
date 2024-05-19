@@ -12,6 +12,15 @@ output "login_server" {
   description = "The login server of the container registry."
 }
 
+output "admin" {
+  value = azurerm_container_registry.this.admin_enabled ? {
+    username = azurerm_container_registry.this.admin_username
+    password = azurerm_container_registry.this.admin_password
+  } : null
+  sensitive   = true
+  description = "The admin credentials of the container registry."
+}
+
 output "private_endpoint_id" {
   value       = try(azurerm_private_endpoint.this[0].id, null)
   description = "The resource id of the private endpoint."

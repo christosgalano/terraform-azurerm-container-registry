@@ -6,7 +6,7 @@ variables {
   resource_group_name = "rg-azurerm-container-registry-tftest"
 }
 
-run "valid_inputs" {
+run "valid_configuration" {
   command = plan
 
   variables {
