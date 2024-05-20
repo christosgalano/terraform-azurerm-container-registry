@@ -54,6 +54,8 @@ jobs:
         with:
           scan-ref: .
           scan-type: fs
+          format: template
+          template: '@trivy_template.xml'
           output: trivy_results_junit.xml
           trivy-config: .trivy.yaml
 
