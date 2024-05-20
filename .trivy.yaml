@@ -3,7 +3,7 @@ exit-code: 0
 ignorefile: .trivyignore.yaml
 
 format: template
-template: trivy_template.xml
+template: '@trivy_template.xml'
 
 scan:
   scanners:
