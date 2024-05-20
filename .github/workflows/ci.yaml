@@ -62,7 +62,7 @@ jobs:
 
       - name: Publish results
         uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
+        if: success() || failure()
         with:
           check_name: Scan Results
           files: '*_junit.xml'

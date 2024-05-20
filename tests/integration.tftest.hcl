@@ -8,10 +8,10 @@ run "setup" {
   }
 
   variables {
-    location            = "northeurope"
-    resource_group_name = "rg-cr-tftest"
-    vnet_name           = "vnet-cr-tftest"
-    subnet_name         = "subnet-cr-tftest"
+    location              = "northeurope"
+    resource_group_prefix = "rg-cr-tftest"
+    vnet_prefix           = "vnet-cr-tftest"
+    subnet_prefix         = "subnet-cr-tftest"
   }
 }
 
@@ -21,7 +21,7 @@ run "create_public_container_registry" {
   variables {
     name                          = "crpublictftest${run.setup.random_name}"
     location                      = "northeurope"
-    resource_group_name           = "rg-cr-tftest"
+    resource_group_name           = run.setup.resource_group_name
     admin_enabled                 = true
     public_network_access_enabled = true
   }
@@ -75,7 +75,7 @@ run "create_private_container_registry" {
   variables {
     name                = "crprivatetftest${run.setup.random_name}"
     location            = "northeurope"
-    resource_group_name = "rg-cr-tftest"
+    resource_group_name = run.setup.resource_group_name
     admin_enabled       = true
     private_endpoint = {
       name      = "pep-tftest-${run.setup.random_name}"

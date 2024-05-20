@@ -3,17 +3,17 @@ variable "location" {
   description = "The location of the resource group in which to create the resources."
 }
 
-variable "resource_group_name" {
+variable "resource_group_prefix" {
   type        = string
-  description = "The name of the resource group in which to create the resources."
+  description = "The prefix of the resource group in which to create the resources."
 }
 
-variable "vnet_name" {
+variable "vnet_prefix" {
   type        = string
-  description = "The name of the virtual network in which to create the private endpoint."
+  description = "The prefix of the virtual network in which to create the private endpoint."
 }
 
-variable "subnet_name" {
+variable "subnet_prefix" {
   type        = string
-  description = "The name of the subnet in which to create the private endpoint."
+  description = "The prefix of the subnet in which to create the private endpoint."
 }
