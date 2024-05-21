@@ -1,6 +1,6 @@
 # terraform-azurerm-container-registry
 
-An opinionated example of how to create and maintain a Terraform module.
+An opinionated example of how to develop, test and maintain a Terraform module.
 
 This module offers the following features:
 
