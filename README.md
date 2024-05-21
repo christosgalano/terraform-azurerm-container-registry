@@ -24,12 +24,12 @@ The basic usage of this module is as follows:
 
 ```hcl
 module "container_registry" {
-  source = "<module-source>"
-
+  source = "github.com/christosgalano/terraform-azurerm-container-registry"
+  
   # Required variables
-  name =
-  resource_group_name =
-
+  name = 
+  resource_group_name = 
+  
   # Optional variables
   admin_enabled = false
   anonymous_pull_enabled = false
