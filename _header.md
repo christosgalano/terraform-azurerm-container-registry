@@ -1,6 +1,6 @@
 # terraform-azurerm-container-registry
 
-Module to deploy Container Registries in Azure.
+An opinionated example of how to create and maintain a Terraform module.
 
 This module offers the following features:
 

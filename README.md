@@ -1,6 +1,6 @@
 # terraform-azurerm-container-registry
 
-Module to deploy Container Registries in Azure.
+An opinionated example of how to create and maintain a Terraform module.
 
 This module offers the following features:
 
@@ -25,11 +25,11 @@ The basic usage of this module is as follows:
 ```hcl
 module "container_registry" {
   source = "<module-source>"
-  
+
   # Required variables
-  name = 
-  resource_group_name = 
-  
+  name =
+  resource_group_name =
+
   # Optional variables
   admin_enabled = false
   anonymous_pull_enabled = false

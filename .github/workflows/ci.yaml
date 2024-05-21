@@ -1,6 +1,7 @@
 name: Continuous Integration
 
 on:
+  # Update based on the way you work (github flow, git flow, continuous integration, etc.)
   push:
     branches:
       - main
