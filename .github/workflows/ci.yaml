@@ -112,6 +112,6 @@ jobs:
         with:
           working-dir: .
           template: ""
-          output-method: ""
+          output-method: replace
           config-file: .terraform-docs.yaml
           git-push: "true"
