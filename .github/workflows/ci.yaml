@@ -111,6 +111,6 @@ jobs:
         uses: terraform-docs/gh-actions@v1.1.0
         with:
           working-dir: .
+          output-method: ""
           config-file: .terraform-docs.yaml
           git-push: "true"
-          output-method: ""
