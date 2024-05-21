@@ -5,7 +5,7 @@ version: '>= 0.17.0, < 1.0.0'
 header-from: '_header.md'
 
 recursive:
-  enabled: false
+  enabled: true
   path: modules
 
 sections:
