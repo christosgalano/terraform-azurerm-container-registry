@@ -23,7 +23,7 @@ content: |-
 
   ```hcl
   module "container_registry" {
-    source = "<module-source>"
+    source = "github.com/christosgalano/terraform-azurerm-container-registry"
     {{- if .Module.RequiredInputs }}
     {{"\n "}} # Required variables
     {{- range .Module.RequiredInputs }}
