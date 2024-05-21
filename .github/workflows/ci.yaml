@@ -99,10 +99,13 @@ jobs:
   terraform_docs:
     name: Terraform Docs
     needs: terraform_test
+    if: github.ref_type == 'branch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - name: Run terraform-docs
         uses: terraform-docs/gh-actions@v1.1.0
