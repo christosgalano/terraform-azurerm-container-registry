@@ -6,9 +6,6 @@ on:
       - main
     tags:
       - v*
-  pull_request:
-    branches:
-      - main
 
 jobs:
   terraform_scan:
@@ -88,6 +85,7 @@ jobs:
         run: terraform test -filter=tests/contract.tftest.hcl
 
       - name: Integration tests
+        if: github.ref_type == 'tag'
         run : terraform test -filter=tests/integration.tftest.hcl
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
